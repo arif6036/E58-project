@@ -1,5 +1,5 @@
 const Event = require("../models/eventModel");
-
+require('dotenv').config()
 // @desc    Create Event
 // @route   POST /api/events
 // @access  Private
@@ -21,7 +21,7 @@ const createEvent = async (req, res) => {
         const createdEvent = await event.save();
         res.status(201).json(createdEvent);
     } catch (error) {
-        res.status(500).json({ message: "Server error", error });
+        res.status(500).json({ message: "Server error", error:error.message });
     }
 };
 
@@ -33,7 +33,7 @@ const getEvents = async (req, res) => {
         const events = await Event.find();
         res.json(events);
     } catch (error) {
-        res.status(500).json({ message: "Server error", error });
+        res.status(500).json({ message: "Server error", error:error.message });
     }
 };
 
@@ -50,7 +50,7 @@ const getEventById = async (req, res) => {
             res.status(404).json({ message: "Event not found" });
         }
     } catch (error) {
-        res.status(500).json({ message: "Server error", error });
+        res.status(500).json({ message: "Server error", error:error.message });
     }
 };
 
@@ -76,7 +76,7 @@ const updateEvent = async (req, res) => {
             res.status(404).json({ message: "Event not found" });
         }
     } catch (error) {
-        res.status(500).json({ message: "Server error", error });
+        res.status(500).json({ message: "Server error", error:error.message });
     }
 };
 
@@ -94,7 +94,7 @@ const deleteEvent = async (req, res) => {
             res.status(404).json({ message: "Event not found" });
         }
     } catch (error) {
-        res.status(500).json({ message: "Server error", error });
+        res.status(500).json({ message: "Server error", error:error.message });
     }
 };
 
