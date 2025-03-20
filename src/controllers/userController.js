@@ -3,15 +3,14 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
 require('dotenv').config()
-// Generate JWT Token
+
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
 };
 
 
 const registerUser = async (req, res) => {
-    const { name, email, password, role } = req.body; // Accept role in the request
-
+    const { name, email, password, role } = req.body; 
     try {
         const userExists = await User.findOne({ email });
         if (userExists) {
@@ -43,86 +42,53 @@ const registerUser = async (req, res) => {
     }
 };
 
-// @desc    Login User
-// @route   POST /api/users/login
-// @access  Public
-// const loginUser = async (req, res) => {
-//     const { email, password } = req.body;
-
-//     try {
-//         const user = await User.findOne({ email });
-
-//         if (user && (await bcrypt.compare(password, user.password))) {
-//             res.json({
-//                 _id: user.id,
-//                 name: user.name,
-//                 email: user.email,
-//                 token: generateToken(user.id),
-//             });
-//         } else {
-//             res.status(401).json({ message: "Invalid email or password" });
-//         }
-//     } catch (error) {
-//         res.status(500).json({ message: "Server error", error });
-//     }
-// };
-
-//modified with cookies
 
 const loginUser = async (req, res) => {
-    const { email, password } = req.body;
-
     try {
-        const user = await User.findOne({ email });
-
-        if (!user || !(await bcrypt.compare(password, user.password))) {
-            return res.status(401).json({ message: "Invalid email or password" });
-        }
-
-        // Generate JWT Token
-        const token = jwt.sign(
-            { id: user._id, role: user.role },
-            process.env.JWT_SECRET,
-            { expiresIn: "1d" }
-        );
-
-        // Set token in HTTP-only cookie
-        res.cookie("jwt", token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production", // HTTPS only in production
-            sameSite: "strict",
-            maxAge: 24 * 60 * 60 * 1000, // 1 day
-        });
-
-        res.json({
-            message: "Login successful",
-            user: {
-                id: user._id,
-                name: user.name,
-                role: user.role
-            }
-        });
-
+      const { email, password } = req.body;
+  
+      const user = await User.findOne({ email });
+      if (!user) {
+        return res.status(401).json({ message: "Invalid email or password" });
+      }
+  
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.status(401).json({ message: "Invalid email or password" });
+      }
+  
+      const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "7d" });
+  
+      res.json({
+        message: "Login successful",
+        token,
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+        },
+      });
+  
     } catch (error) {
-        if (!res.headersSent) {
-            return res.status(500).json({ message: "Server error", error: error.message });
-        }
+      console.error("Login Error:", error);
+      res.status(500).json({ message: "Server Error" });
     }
-};
+  };
+  
+  
+  
 
 const logoutUser = (req, res) => {
     res.cookie("jwt", "", {
         httpOnly: true,
-        expires: new Date(0), // Expire the cookie immediately
+        expires: new Date(1), // Expire the cookie immediately
     });
 
     res.json({ message: "Logged out successfully" });
 };
 
 
-// @desc    Get User Profile
-// @route   GET /api/users/profile
-// @access  Private
 const getUserProfile = async (req, res) => {
     try {
         const user = await User.findById(req.user.id).select("-password");
@@ -255,7 +221,7 @@ const forgotPassword = async (req, res) => {
         );
 
         // Use Frontend URL for Reset Link
-        const resetLink = `http://localhost:3000/reset-password/${resetToken}`; //local host front end
+        const resetLink = `http://localhost:5173/reset-password/${resetToken}`; //local host front end
 
         // Send Email
         await transporter.sendMail({
@@ -306,6 +272,15 @@ const deleteUser = async (req, res) => {
         res.status(500).json({ message: "Server error", error: error.message });
     }
 };
+// ✅ Delete All Users (Admin Only)
+const deleteAllUsers = async (req, res) => {
+    try {
+        const result = await User.deleteMany({});
+        res.status(200).json({ message: "All users have been deleted", deletedCount: result.deletedCount });
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+};
 
 module.exports = {
     registerUser,
@@ -317,5 +292,6 @@ module.exports = {
     forgotPassword,
     resetPassword,
     getAllUsers,
-    deleteUser
+    deleteUser,
+    deleteAllUsers
 };

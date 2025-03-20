@@ -22,19 +22,21 @@ const eventSchema = mongoose.Schema(
             type: Number,
             required: true,
         },
-        eventType: { 
-            type: String, 
-            enum: ["free", "ticketed"], // ✅ Use "ticketed" instead of "paid"
-            required: [true, "Event type is required"]
+        eventType: { type: String, enum: ["free", "paid"], required: true },
+        ticketPrice: {
+            type: Number, required: function () { return this.eventType === "paid"; }
         },
 
-        ticketPrice: { 
+
+        ticketPrice: {
             type: Number,
-             required: function () { return this.eventType === "paid"; } }, // ✅ Ticket price required for paid events
+            required: function () { return this.eventType === "paid"; }
+        }, // ✅ Ticket price required for paid events
         isActive: {
             type: Boolean,
             default: true,
         },
+        image: { type: String },
         createdBy: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",

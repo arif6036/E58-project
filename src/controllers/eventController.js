@@ -1,22 +1,21 @@
 
 require('dotenv').config()
 const Event = require("../models/eventModel");
-const Ticket = require("../models/ticketModel");
-const QRCode = require("qrcode");
+const cloudinary = require('cloudinary').v2;
 
 // 1️⃣ Create Event (Protected)
 const createEvent = async (req, res) => {
     try {
         const { title, description, date, time, venue, eventType, ticketPrice } = req.body;
 
-        // Validate required fields
         if (!title || !date || !time || !venue || !eventType) {
-            return res.status(400).json({ message: "Please provide all required fields: title, date, time, venue, eventType" });
+            return res.status(400).json({ message: "Please provide all required fields" });
         }
 
-        // If event is paid, ticketPrice must be provided
-        if (eventType === "paid" && (ticketPrice === undefined || ticketPrice < 0)) {
-            return res.status(400).json({ message: "Ticket price is required for paid events and must be positive" });
+        let imageUrl = null;
+        if (req.file) {
+            const uploadedImage = await cloudinary.uploader.upload(req.file.path, { folder: "event-images" });
+            imageUrl = uploadedImage.secure_url;
         }
 
         const event = new Event({
@@ -26,7 +25,8 @@ const createEvent = async (req, res) => {
             time,
             venue,
             eventType,
-            ticketPrice: eventType === "paid" ? ticketPrice : 0, // Default to 0 for free events
+            ticketPrice: eventType === "paid" ? ticketPrice : 0,
+            image: imageUrl,
             createdBy: req.user.id,
         });
 
@@ -40,7 +40,7 @@ const createEvent = async (req, res) => {
 // 2️⃣ Get All Events (Public)
 const getEvents = async (req, res) => {
     try {
-        const events = await Event.find();
+        const events = await Event.find().select("title description date time venue eventType ticketPrice image");;
         res.json(events);
     } catch (error) {
         res.status(500).json({ message: "Server error", error: error.message });
@@ -123,108 +123,7 @@ const getFilteredEvents = async (req, res) => {
     }
 };
 
-// 8️⃣ Book Ticket (User)
-const bookTicket = async (req, res) => {
-    try {
-        const event = await Event.findById(req.params.id);
 
-        if (!event) {
-            return res.status(404).json({ message: "Event not found" });
-        }
-
-        const { ticketType, price } = req.body;
-
-        const ticket = await Ticket.create({
-            event: event._id,
-            user: req.user.id,
-            ticketType,
-            price,
-        });
-
-        res.status(201).json({ message: "Ticket booked successfully", ticket });
-    } catch (error) {
-        res.status(500).json({ message: "Server error", error: error.message });
-    }
-};
-
-// 9️⃣ Get User's Tickets
-const getUserTickets = async (req, res) => {
-    try {
-        const tickets = await Ticket.find({ user: req.user.id }).populate("event", "name date venue");
-        res.json(tickets);
-    } catch (error) {
-        res.status(500).json({ message: "Server error", error: error.message });
-    }
-};
-
-// 🔟 Get All Bookings for an Event (Admin)
-const getEventBookings = async (req, res) => {
-    try {
-        const tickets = await Ticket.find({ event: req.params.id }).populate("user", "name email");
-        res.json(tickets);
-    } catch (error) {
-        res.status(500).json({ message: "Server error", error: error.message });
-    }
-};
-
-// 1️⃣1️⃣ Cancel Ticket (User)
-const cancelTicket = async (req, res) => {
-    try {
-        const ticket = await Ticket.findOneAndDelete({ _id: req.params.id, user: req.user.id });
-
-        if (!ticket) {
-            return res.status(404).json({ message: "Ticket not found or already canceled" });
-        }
-
-        res.json({ message: "Ticket canceled successfully" });
-    } catch (error) {
-        res.status(500).json({ message: "Server error", error: error.message });
-    }
-};
-
-// 1️⃣2️⃣ Generate Ticket (QR Code)
-const generateTicket = async (req, res) => {
-    try {
-        const ticket = await Ticket.findById(req.params.ticketId).populate("event", "name date venue");
-
-        if (!ticket) {
-            return res.status(404).json({ message: "Ticket not found" });
-        }
-
-        // Generate QR Code
-        const qrCodeUrl = await QRCode.toDataURL(JSON.stringify({ ticketId: ticket._id, event: ticket.event.name }));
-
-        ticket.qrCode = qrCodeUrl;
-        await ticket.save();
-
-        res.json({ qrCode: qrCodeUrl, ticket });
-    } catch (error) {
-        res.status(500).json({ message: "Server error", error: error.message });
-    }
-};
-
-// 1️⃣3️⃣ Check-in Ticket (Event Staff)
-const checkInTicket = async (req, res) => {
-    try {
-        const ticket = await Ticket.findById(req.params.ticketId);
-
-        if (!ticket) {
-            return res.status(404).json({ message: "Ticket not found" });
-        }
-
-        if (ticket.isCheckedIn) {
-            return res.status(400).json({ message: "Ticket already checked in" });
-        }
-
-        ticket.isCheckedIn = true;
-        ticket.checkInTime = new Date();
-        await ticket.save();
-
-        res.json({ message: "Check-in successful", ticket });
-    } catch (error) {
-        res.status(500).json({ message: "Server error", error: error.message });
-    }
-};
 
 module.exports = {
     createEvent,
@@ -234,10 +133,4 @@ module.exports = {
     deleteEvent,
     getMyEvents,
     getFilteredEvents,
-    bookTicket,
-    getUserTickets,
-    getEventBookings,
-    cancelTicket,
-    generateTicket,
-    checkInTicket
 };
