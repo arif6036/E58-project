@@ -1,0 +1,931 @@
+/* Cover Section Styling */
+.cover-section {
+  position: relative;
+  background: url("../assets/hero-bg.jpg") no-repeat center center/cover;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.cover-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.cover-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.cover-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.cover-btn {
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.cover-btn:hover {
+  transform: translateY(-5px);
+  background-color: #45a049; /* Darker green on hover */
+}
+
+
+.cover-section img {
+  width: 100%;
+  border-radius: 15px;
+}
+
+body {
+  padding-top: 80px;
+  background-color: #102a24; /* ✅ Dark Green Background */
+  color: white; 
+}
+
+/* Navbar base styles with glassmorphism effect */
+.modern-navbar {
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 15px 0;
+  transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+/* Loaded state animation */
+.modern-navbar.loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Scroll effect */
+.modern-navbar.scrolled {
+  padding: 10px 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Brand logo animations */
+.brand-logo {
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  transition: transform 0.3s ease;
+}
+
+.brand-logo:hover {
+  transform: scale(1.05);
+}
+
+.brand-text {
+  color: #333;
+}
+
+.brand-accent {
+  color: #097c37;
+  position: relative;
+}
+
+.brand-dot {
+  color: #086333;
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 0;
+  margin-left: 2px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Nav links container */
+.nav-links-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Nav item wrapper for consistent spacing */
+.nav-item-wrapper {
+  position: relative;
+  margin: 0 5px;
+}
+
+/* Fancy animated nav links */
+.fancy-nav-link {
+  color: #555 !important;
+  font-weight: 500;
+  padding: 10px 15px !important;
+  position: relative;
+  transition: color 0.3s ease;
+  overflow: hidden;
+}
+
+.fancy-nav-link.active {
+  color: #5271ff !important;
+  font-weight: 600;
+}
+
+.hover-effect {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #5271ff;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.fancy-nav-link:hover .hover-effect {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.fancy-nav-link.active .hover-effect {
+  transform: scaleX(1);
+}
+
+/* Animated buttons with hover effects */
+.animated-button {
+  position: relative;
+  padding: 10px 24px !important;
+  border-radius: 50px !important;
+  font-weight: 600 !important;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  transform: translateZ(0);
+  margin-left: 15px !important;
+}
+
+/* Primary button */
+.primary-btn {
+  background-color: #5271ff !important;
+  border: none !important;
+  color: white !important;
+  box-shadow: 0 5px 15px rgba(82, 113, 255, 0.25) !important;
+}
+
+.primary-btn:hover {
+  background-color: #4563e8 !important;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 20px rgba(82, 113, 255, 0.4) !important;
+}
+
+.primary-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Logout button */
+.logout-btn {
+  background-color: transparent !important;
+  border: 1px solid #ddd !important;
+  color: #555 !important;
+}
+
+.logout-btn:hover {
+  border-color: #5271ff !important;
+  color: #5271ff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(82, 113, 255, 0.1) !important;
+}
+
+/* Button shine effect */
+.button-shine {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(30deg);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.primary-btn:hover .button-shine {
+  animation: shineEffect 1.5s ease-out;
+}
+
+@keyframes shineEffect {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%) rotate(30deg);
+  }
+  20% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%) rotate(30deg);
+  }
+}
+
+/* Custom hamburger toggle animation */
+.custom-toggler {
+  border: none !important;
+  background-color: transparent !important;
+  width: 45px;
+  height: 40px;
+  padding: 5px !important;
+  position: relative;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.custom-toggler.loaded {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.custom-toggler:focus {
+  box-shadow: none !important;
+}
+
+.toggler-icon {
+  display: block;
+  width: 25px;
+  height: 2px;
+  background-color: #555;
+  margin: 5px auto;
+  transition: all 0.3s ease;
+}
+
+.navbar-toggler[aria-expanded="true"] .toggler-icon:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.navbar-toggler[aria-expanded="true"] .toggler-icon:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar-toggler[aria-expanded="true"] .toggler-icon:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Mobile responsive styles */
+@media (max-width: 991.98px) {
+  .nav-links-container {
+    padding-top: 15px;
+    gap: 5px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .nav-item-wrapper {
+    margin: 5px 0;
+    width: 100%;
+  }
+  
+  .fancy-nav-link {
+    width: 100%;
+    padding: 12px 5px !important;
+  }
+  
+  .animated-button {
+    margin: 10px 0 0 0 !important;
+    width: 100%;
+    display: block;
+  }
+  
+  .hover-effect {
+    height: 1px;
+  }
+}
+
+/* Entry animation for navbar items */
+.nav-item-wrapper {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 0.5s forwards;
+}
+
+.nav-item-wrapper:nth-child(1) { animation-delay: 0.1s; }
+.nav-item-wrapper:nth-child(2) { animation-delay: 0.2s; }
+.nav-item-wrapper:nth-child(3) { animation-delay: 0.3s; }
+.nav-item-wrapper:nth-child(4) { animation-delay: 0.4s; }
+
+.animated-button {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 0.5s forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Footer.css - Modern footer styling */
+
+.modern-footer {
+  position: relative;
+  background-color: #141b2d;
+  color: #f8f9fa;
+  margin-top: 6rem;
+}
+
+/* Wave decoration at the top */
+.footer-wave {
+  position: absolute;
+  top: -99px;
+  left: 0;
+  width: 100%;
+  line-height: 0;
+  overflow: hidden;
+}
+
+.footer-wave svg {
+  display: block;
+  width: 100%;
+  height: 100px;
+}
+
+/* Main content section */
+.footer-content {
+  padding: 4rem 0 2rem;
+}
+
+/* Footer title styling */
+.footer-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 1.2rem;
+  background: linear-gradient(90deg, #5271ff, #9f94ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.title-dot {
+  color: #5271ff;
+  font-size: 2.2rem;
+  position: relative;
+  -webkit-text-fill-color: #5271ff;
+}
+
+/* Footer description */
+.footer-description {
+  color: #adb5bd;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* Footer column spacing */
+.footer-column {
+  margin-bottom: 2rem;
+}
+
+/* Subtitles for each column */
+.footer-subtitle {
+  color: #f8f9fa;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+  position: relative;
+  display: inline-block;
+}
+
+.footer-subtitle::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  height: 2px;
+  width: 30px;
+  background: linear-gradient(90deg, #5271ff, #9f94ff);
+}
+
+/* Footer links styling */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.8rem;
+}
+
+.footer-links a {
+  color: #adb5bd;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  padding-left: 0;
+}
+
+.footer-links a::before {
+  content: '→';
+  position: absolute;
+  left: -15px;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #ffffff;
+  padding-left: 15px;
+}
+
+.footer-links a:hover::before {
+  opacity: 1;
+  left: 0;
+}
+
+/* Social icons styling */
+.social-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #f8f9fa;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  background-color: #5271ff;
+  color: white;
+  transform: translateY(-5px);
+}
+
+/* Contact styling */
+.footer-contact {
+  color: #adb5bd;
+  font-style: normal;
+}
+
+.footer-contact p {
+  margin-bottom: 0.7rem;
+  display: flex;
+  align-items: center;
+}
+
+.contact-icon {
+  margin-right: 10px;
+  font-style: normal;
+}
+
+/* Bottom bar with copyright */
+.footer-bottom {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 1.2rem 0;
+  font-size: 0.9rem;
+}
+
+.copyright {
+  margin-bottom: 0;
+  color: #adb5bd;
+}
+
+/* Legal links */
+.footer-legal {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+}
+
+.footer-legal a {
+  color: #adb5bd;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-legal a:hover {
+  color: #ffffff;
+}
+
+/* Responsive styles */
+@media (max-width: 767.98px) {
+  .footer-wave {
+    top: -50px;
+  }
+  
+  .footer-wave svg {
+    height: 50px;
+  }
+  
+  .footer-legal, .copyright {
+    text-align: center;
+    justify-content: center;
+  }
+  
+  .footer-title {
+    margin-top: 1rem;
+  }
+  
+  .footer-column {
+    text-align: center;
+  }
+  
+  .footer-subtitle::after {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+  }
+  
+  .social-icons {
+    justify-content: center;
+  }
+  
+  .footer-links a::before {
+    display: none;
+  }
+  
+  .footer-links a:hover {
+    padding-left: 0;
+  }
+  
+  .footer-contact p {
+    justify-content: center;
+  }
+}
+
+/* Animation for footer wave */
+@keyframes wave {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-25%); }
+  100% { transform: translateX(0); }
+}
+
+/* Entrance animation for footer elements */
+@media (min-width: 768px) {
+  .footer-column {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s forwards;
+  }
+  
+  .footer-column:nth-child(1) { animation-delay: 0.1s; }
+  .footer-column:nth-child(2) { animation-delay: 0.2s; }
+  .footer-column:nth-child(3) { animation-delay: 0.3s; }
+  .footer-column:nth-child(4) { animation-delay: 0.4s; }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* EventsPage.css */
+.card.hover-shadow {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card.hover-shadow:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.event-image {
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: calc(0.375rem - 1px);
+  border-top-right-radius: calc(0.375rem - 1px);
+}
+
+.card-img-wrapper {
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .event-image {
+    height: 160px;
+  }
+}
+
+
+.booking-page {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.event-header-image {
+  height: 300px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.event-image-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(rgba(198, 248, 223, 0), rgba(0,0,0,0.3));
+}
+
+.quantity-selector input[type="number"] {
+  width: 60px;
+  border-radius: 4px;
+}
+
+.quantity-selector input[type="number"]::-webkit-inner-spin-button,
+.quantity-selector input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.sticky-top {
+  z-index: 100;
+}
+
+@media (max-width: 992px) {
+  .sticky-top {
+    position: relative;
+    top: 0 !important;
+  }
+  
+  .event-header-image {
+    height: 220px;
+  }
+}
+/* Buttons Below Cover */
+.button-group {
+  display: flex;
+  gap: 20px; /* ✅ Adds spacing between buttons */
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Individual Buttons */
+.button-group button {
+  min-width: 180px; /* ✅ Ensures consistent button size */
+  padding: 12px 20px;
+  font-size: 1.1rem;
+}
+/* 🌿 Register Page Styling */
+.register-page {
+  background-color: #102a24; /* Dark Green Background */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 📌 Registration Card */
+.register-card {
+  background-color: #1a3b33; /* Darker Green */
+  color: white;
+  width: 400px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 10px 25px rgba(255, 255, 255, 0.1);
+}
+
+/* ✨ Input Fields */
+.input-field {
+  background-color: #143d33;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  color: white;
+  font-size: 1rem;
+}
+
+.input-field::placeholder {
+  color: #a3b8b0;
+}
+
+.input-field:focus {
+  background-color: #164d3b;
+  outline: none;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+/* 🌟 Custom Register Button */
+.btn-custom {
+  background-color: #238b62; /* Bright Green */
+  border: none;
+  padding: 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-custom:hover {
+  background-color: #1f573a; /* Darker Green */
+  transform: scale(1.05);
+}
+/* 🌿 Login Page Styling */
+.login-page {
+  background-color: #102a24; /* Dark Green Background */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 📌 Login Card */
+.login-card {
+  background-color: #1a3b33; /* Darker Green */
+  color: white;
+  width: 400px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 10px 25px rgba(255, 255, 255, 0.1);
+}
+
+/* ✨ Input Fields */
+.input-group-text {
+  background-color: #143d33;
+  border: none;
+}
+
+.input-field {
+  background-color: #143d33;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  color: white;
+  font-size: 1rem;
+}
+
+.input-field::placeholder {
+  color: #a3b8b0;
+}
+
+.input-field:focus {
+  background-color: #164d3b;
+  outline: none;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+/* 🌟 Custom Login Button */
+.btn-custom {
+  background-color: #238b62; /* Bright Green */
+  border: none;
+  padding: 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-custom:hover {
+  background-color: #1f573a; /* Darker Green */
+  transform: scale(1.05);
+}
+
+/* 📎 Link Styling */
+.text-warning {
+  color: #ffcc00 !important;
+}
+
+.text-warning:hover {
+  color: #e6b800 !important;
+}
+/* 🌿 Dark Green Theme */
+body {
+  background-color: #102a24; /* Dark Green */
+  color: white;
+}
+
+/* 📌 Dark Background for Events Page */
+.dark-bg {
+  background-color: #102a24;
+}
+
+/* 📌 Navigation Bar */
+.dark-nav {
+  background-color: #164d3b;
+  padding: 15px 0;
+}
+
+.dark-nav a {
+  color: white;
+  font-weight: bold;
+  transition: 0.3s ease-in-out;
+}
+
+.dark-nav a:hover {
+  color: #ffcc00;
+}
+/* 🌿 Dark Green Theme */
+body {
+  background-color: #102a24; /* Dark Green */
+  color: white;
+}
+
+/* 📌 Dark Background for Events Page */
+.dark-bg {
+  background-color: #102a24;
+}
+
+/* 📌 Navigation Bar */
+.dark-nav {
+  background-color: #164d3b;
+  padding: 15px 0;
+}
+
+.dark-nav a {
+  color: white;
+  font-weight: bold;
+  transition: 0.3s ease-in-out;
+}
+
+.dark-nav a:hover {
+  color: #ffcc00;
+}
+
+/* 🎟 Transparent Event Cards */
+.event-card {
+  background-color: rgba(26, 59, 51, 0.6); /* Semi-transparent Dark Green */
+  color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+}
+
+/* 📸 Event Image */
+.event-image {
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+
+/* 📎 Buttons */
+.btn-success {
+  background-color: #238b62;
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #1f573a;
+}
+
+/* 🔥 No Events Found Message */
+.text-muted {
+  color: #b8c6c1 !important;
+}
+/* 🌿 Dark Theme */
+body {
+  background-color: #102a24;
+  color: white;
+}
+
+/* 🎟 Transparent Card */
+.transparent-card {
+  background-color: rgba(26, 59, 51, 0.6); /* Semi-transparent */
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+}
+
+/* 📸 Event Image */
+.event-image {
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+

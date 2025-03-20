@@ -1,0 +1,82 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter, transform; /* Improved performance by specifying changeable properties */
+  transition: filter 300ms, transform 300ms ease-in-out; /* Add smooth transform transition */
+  cursor: pointer; /* Add pointer cursor on hover */
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa); /* Apply shadow on hover */
+  transform: scale(1.1); /* Add slight zoom-in effect on hover */
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa); /* React-specific hover effect */
+  transform: scale(1.1); /* Consistent zoom-in effect for React logo */
+}
+
+/* Spin animation for the logo */
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Spin the second logo infinitely, but respect user preferences */
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+/* .card styles */
+.card {
+  padding: 3em;
+  background: rgba(0, 0, 0, 0.1); /* Add light background for the card */
+  border-radius: 15px; /* Rounded corners for card */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for card */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover transition */
+}
+
+.card:hover {
+  transform: scale(1.05); /* Slight zoom-in effect on hover */
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2); /* Slightly deeper shadow on hover */
+}
+
+.read-the-docs {
+  color: #888;
+  font-size: 0.9rem; /* Make the text a bit smaller for a more modern look */
+  transition: color 0.3s ease; /* Smooth color transition on hover */
+}
+
+.read-the-docs:hover {
+  color: #333; /* Change color on hover for better visibility */
+}
+
+/* Add responsive styling */
+@media (max-width: 768px) {
+  #root {
+    padding: 1rem; /* Reduce padding for smaller screens */
+  }
+
+  .logo {
+    height: 5em;
+    padding: 1em; /* Reduce padding for smaller screens */
+  }
+
+  .card {
+    padding: 2em; /* Reduce card padding for smaller screens */
+  }
+}
